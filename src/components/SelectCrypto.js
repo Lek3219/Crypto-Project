@@ -1,3 +1,5 @@
+import React from 'react'
+
 
 const SelectCrypto=({options,crypto, setCrypto,...props}) => {
     return(

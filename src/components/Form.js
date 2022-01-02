@@ -1,8 +1,7 @@
-import react, {useState, useEffect} from "react";
+import React, {useState, useEffect, useMemo} from "react";
 import SelectCrypto from "./SelectCrypto";
 import SelectCurrency from "./SelectCurrency";
-import axios from "axios";
-import Quote from "./QuoteCrypto";
+import {getTopMarket} from '../services/AppCrud'
 
 
 const Form=({currency, setCurrency, crypto, setCrypto, ...props})=>{
@@ -12,17 +11,25 @@ const Form=({currency, setCurrency, crypto, setCrypto, ...props})=>{
         {code:'USD', name:'Dolar Americano'},
         {code:'MXN', name:'Peso Mexicano'}, 
         {code:'EUR', name:'Euro'},
-        {code:'GBP', name:'Libra Esterlina '}]
+        {code:'GBP', name:'Libra Esterlina '}
+    ]
 
-        useEffect(()=>{
-            const consultAPI = async()=>{
-                const url='https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD';
-                const result = await axios.get(url);
-                setCryptos(result.data.Data)
+    useEffect(()=>{
 
-            }
-            consultAPI()
-        },[])
+        getTopMarket(10).then((res)=>{
+            setCryptos(res.data.Data)
+        })
+
+    },[])
+
+    //aqui  hay una manera de hacerlo q no es esa pero todavia no la has dado
+    const currencies = useMemo(()=>{
+        let res=[]
+        getTopMarket(10).then((res)=>{
+            res = res.data.Data
+        })
+        return res
+    },[])
 
 
     //Select de un array
@@ -30,7 +37,6 @@ const Form=({currency, setCurrency, crypto, setCrypto, ...props})=>{
         <>
             <SelectCurrency options={CURRENCYS} currency={currency} setCurrency={setCurrency}/>
             <SelectCrypto options={cryptos} crypto={crypto} setCrypto={setCrypto}/>
-            <button type='submit' value='result'>Calcular</button>
         </>
            
            

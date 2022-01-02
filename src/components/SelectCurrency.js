@@ -1,4 +1,6 @@
 
+import React from 'react'
+
 const SelectCurrency=({options,currency, setCurrency})=>{
         return(
         <form>
@@ -7,7 +9,7 @@ const SelectCurrency=({options,currency, setCurrency})=>{
             <select value={currency} onChange={e=>setCurrency(e.target.value)}>
                 <option  value=''>-Selecciona una moneda-</option>
                 {options.map(actualOption=>(  
-                    <option key = {actualOption.value} value={actualOption.value}>{actualOption.name}</option>
+                    <option key = {actualOption.code} value={actualOption.code}>{actualOption.name}</option>
                 ))}
             </select>
             </>
