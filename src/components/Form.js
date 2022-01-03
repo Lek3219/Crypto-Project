@@ -6,7 +6,7 @@ import {getTopMarket} from '../services/AppCrud'
 
 const Form=({currency, setCurrency, crypto, setCrypto, ...props})=>{
 
-    const[cryptos, setCryptos]=useState('')
+    const[cryptos, setCryptos]=useState([])
     const CURRENCYS=[
         {code:'USD', name:'Dolar Americano'},
         {code:'MXN', name:'Peso Mexicano'}, 
@@ -15,21 +15,27 @@ const Form=({currency, setCurrency, crypto, setCrypto, ...props})=>{
     ]
 
     useEffect(()=>{
-
+        const temp = {
+            CoinInfo:{
+                Id: 4365575,
+                Name: "SLP",
+                FullName:'Small Love Potion'
+            }
+        }
         getTopMarket(10).then((res)=>{
-            setCryptos(res.data.Data)
+            setCryptos([temp,...res.data.Data])
         })
 
     },[])
 
     //aqui  hay una manera de hacerlo q no es esa pero todavia no la has dado
-    const currencies = useMemo(()=>{
-        let res=[]
-        getTopMarket(10).then((res)=>{
-            res = res.data.Data
-        })
-        return res
-    },[])
+    // const criptos = useMemo(()=>{
+    //     let res=[]
+    //     getTopMarket(10).then((res)=>{
+    //         res = res.data.Data
+    //     })
+    //     return res
+    // },[])
 
 
     //Select de un array

@@ -25,6 +25,7 @@ function App() {
     if(!currency.length || !crypto.length) return
 
     getPriceMultiFull(crypto,currency).then((res)=>{
+      console.log(res)
       setResult(res.data.DISPLAY)
     })
  
