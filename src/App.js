@@ -1,5 +1,4 @@
 import React,{ useState, useEffect } from "react";
-import axios from "axios";
 import Form from "./components/Form";
 import Quote from "./components/QuoteCrypto";
 import {getPriceMultiFull} from './services/AppCrud'
