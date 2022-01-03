@@ -1,11 +1,11 @@
+import React from 'react'
 
-const Quote=({result})=>{
-    if(Object.keys(result).length===0) return null
+const Quote=({result,currency,crypto})=>{
+    console.log(result)
     return(
         <div>
-            <p>
-                El precio es : <span>{result.PRICE}</span>
-            </p>
+            <div>EL precio es:</div>
+            <div>{`1${result[crypto][currency].FROMSYMBOL} = ${result[crypto][currency].PRICE}`}</div>
         </div>
     )
 }
